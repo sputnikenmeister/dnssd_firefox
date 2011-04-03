@@ -1,0 +1,13 @@
+content	dnssd	content/
+resource	dnssd	modules/
+locale		dnssd	en-US	locale/en-US/
+skin		dnssd	classic/1.0	skin/
+overlay	chrome://browser/content/browser.xul		chrome://dnssd/content/browser.xul
+style		chrome://global/content/customizeToolbar.xul	chrome://dnssd/content/browser.css
+override	chrome://dnssd/content/welcome.html		chrome://dnssd/locale/welcome.html
+interfaces	components/IDNSSD.xpt
+component	{2a0884a8-40d8-4e12-afd6-26530b2e47c2}	components/DNSSDServiceTracker.js
+contract	@dnssd.me/DNSSDServiceTracker;1	{2a0884a8-40d8-4e12-afd6-26530b2e47c2}
+category	profile-after-change			DNSSDServiceTracker @dnssd.me/DNSSDServiceTracker;1
+binary-component					components/DNSSDService.dylib
+binary-component					components/DNSSDService.dll

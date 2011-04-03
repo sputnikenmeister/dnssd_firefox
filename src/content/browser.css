@@ -1,0 +1,15 @@
+#dnssd-toolbar-button {
+  -moz-box-orient: horizontal;
+}
+#dnssd-toolbar-button .toolbarbutton-text {
+  display: -moz-box;
+  margin: 0;
+  color: -moz-dialogtext;
+  text-shadow: none;
+}
+#dnssd-toolbar-button .toolbarbutton-icon {
+  display: none;
+}
+#dnssd-toolbar-button .toolbarbutton-menu-dropmarker {
+  -moz-padding-start: 5px;
+}

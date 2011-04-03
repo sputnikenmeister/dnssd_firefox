@@ -1,0 +1,47 @@
+#include "nsISupports.idl"
+#include "nsIArray.idl"
+#include "nsIObserver.idl"
+
+[scriptable, uuid(72427B4D-F37D-4BF8-A6BE-41510B27E6A3)]
+interface IDNSSDServiceTracker : nsISupports
+{
+  void observe(in nsISupports aSubject, in string aTopic, in wstring aData);
+  nsIArray getServices();
+};
+
+interface IDNSSDService;
+
+[scriptable, function, uuid(E8E81354-2BF5-41BB-BC61-6AED6C88E017)]
+interface IDNSSDServiceBrowseCallback : nsISupports
+{
+  void callback(in IDNSSDService service,
+		in boolean add,
+		in long interfaceIndex,
+		in long errorCode,
+		in AString serviceName,
+		in AString regtype,
+		in AString domain);
+};
+
+[scriptable, function, uuid(4BC9C5DC-0AC4-4BD5-ABDD-75B77947EEA0)]
+interface IDNSSDServiceResolveCallback : nsISupports
+{
+  void callback(in IDNSSDService service,
+		in long interfaceIndex,
+		in long errorCode,
+		in AString fullname,
+		in AString hosttarget,
+		in long port,
+		in AString path);
+};
+
+[scriptable, uuid(7E2EAF8E-FBBE-460E-B838-69D2389BA46F)]
+interface IDNSSDService : nsISupports
+{
+  IDNSSDService browse(in IDNSSDServiceBrowseCallback callback);
+  IDNSSDService resolve(in AString serviceName,
+			in AString regtype,
+			in AString domain,
+			in IDNSSDServiceResolveCallback callback);
+  void stop();
+};

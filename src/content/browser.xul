@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://dnssd/content/browser.css" type="text/css"?>
+<!DOCTYPE overlay SYSTEM "chrome://dnssd/locale/dnssd.dtd">
+<overlay id="dnssd-overlay"
+	 xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <script src="chrome://dnssd/content/browser.js"/>
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbaritem id="dnssd-toolbarset">
+      <toolbarbutton id="dnssd-toolbar-button"
+		     type="menu"
+		     label="&dnssd.toolbar.label;"
+		     tooltiptext="&dnssd.toolbar.tooltip;"
+		     onclick="event.preventDefault();
+			      dnssd.renderMenu('dnssd-toolbar-popupmenu');"
+		   class="toolbarbutton-1">
+	<menupopup id="dnssd-toolbar-popupmenu">
+	  <menuitem id="dnssd-toolbar-popmenu-noservices" disabled="true"
+		    label="&dnssd.menu.noservices;"/>
+	</menupopup>
+      </toolbarbutton>
+    </toolbaritem>
+  </toolbarpalette>
+  <menupopup id="bookmarksMenuPopup">
+    <menu insertafter="bookmarksShowAll" label="DNSSD">
+      <menupopup id="dnssd-menu"
+		 onpopupshowing="dnssd.renderMenu('dnssd-menu')">
+	<menuitem label="&dnssd.menu.noservices;" disabled="true"/>
+      </menupopup>
+    </menu>
+    <menuseparator insertafter="bookmarksShowAll"/>
+  </menupopup>
+</overlay>
