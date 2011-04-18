@@ -182,7 +182,4 @@ DNSSDServiceTracker.prototype = {
 
 var components =[DNSSDServiceTracker];
 
-if (XPCOMUtils.generateNSGetFactory)
-    var NSGetFactory = XPCOMUtils.generateNSGetFactory(components);
-else
-    var NSGetModule = XPCOMUtils.generateNSGetModule(components);
+const NSGetFactory = XPCOMUtils.generateNSGetFactory(components);
