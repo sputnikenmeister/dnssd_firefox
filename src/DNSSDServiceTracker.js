@@ -1,3 +1,4 @@
+Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 function DNSSDServiceTracker() {};
@@ -16,9 +17,7 @@ DNSSDServiceTracker.prototype = {
         Components.interfaces.nsISupportsWeakReference,
         Components.interfaces.IDNSSDServiceTracker,
     ]),
-    _observerService: null,
     _dnssdSvc: null,
-    _consoleService: null,
     _alertsService: null,
     _prefs: null,
     _dnssdSvcBrowser: null,
@@ -31,22 +30,6 @@ DNSSDServiceTracker.prototype = {
         var context = this;
         return function() { fn.apply(context, arguments); }
     },
-    consoleService: function()  {
-        if (!this._consoleService)  {
-            this._consoleService = Components
-		.classes["@mozilla.org/consoleservice;1"]
-                .getService(Components.interfaces.nsIConsoleService);
-        }
-        return this._consoleService;
-    },
-    observerService: function()  {
-        if (!this._observerService) {
-            this._observerService = Components
-		.classes["@mozilla.org/observer-service;1"]
-                .getService(Components.interfaces.nsIObserverService);
-        }
-        return this._observerService;
-    },
     alertsService: function() {
         if (!this._alertsService)   {
             this._alertsService = Components
@@ -57,10 +40,7 @@ DNSSDServiceTracker.prototype = {
     },
     prefs: function() {
         if (!this._prefs)    {
-            this._prefs = Components
-		.classes["@mozilla.org/preferences-service;1"]
-                .getService(Components.interfaces.nsIPrefService)
-                .getBranch("extensions.dnssd.");
+            this._prefs = Services.prefs.getBranch("extensions.dnssd.");
         }
         return this._prefs;
     },
@@ -85,7 +65,7 @@ DNSSDServiceTracker.prototype = {
     log: function(text) {
         if (this.prefs().getBoolPref("log") == true) {
 	    var logtext = "[DNSSDServiceTracker] " + text;
-            this.consoleService().logStringMessage(logtext);
+	    Services.console.logStringMessage(logtext);
         }
     },
     _alertsPref: false,
