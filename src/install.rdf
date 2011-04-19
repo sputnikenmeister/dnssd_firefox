@@ -9,7 +9,7 @@
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
                    em:unpack="true"
                    em:id="bonjourfoxy@bonjourfoxy.net"
-                   em:version="0.9.0"
+                   em:version="0.9.1"
                    em:name="DNSSD for Firefox"
                    em:description="DNS Service Discovery for Firefox"
                    em:homepageURL="http://www.dnssd.me/web/firefox"
