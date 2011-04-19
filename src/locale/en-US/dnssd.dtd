@@ -1,3 +1,6 @@
 <!ENTITY dnssd.toolbar.label "DNSSD">
 <!ENTITY dnssd.toolbar.tooltip "DNSSD Services">
 <!ENTITY dnssd.menu.noservices "None">
+<!ENTITY dnssd.prefs.window_title "DNSSD for Firefox Settings">
+<!ENTITY dnssd.prefs.alerts_label "Display a notification when a service is found">
+<!ENTITY dnssd.prefs.log_label "Log debug information to Error Console">

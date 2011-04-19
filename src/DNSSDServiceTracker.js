@@ -68,16 +68,6 @@ DNSSDServiceTracker.prototype = {
 	    Services.console.logStringMessage(logtext);
         }
     },
-    _alertsPref: false,
-    _updateAlertsPref: function(update)  {
-        this._alertPref = this.prefs().getBoolPref("alerts");
-    },
-    _sendAlerts: function()  {
-        if (!this._alertPref)   {
-            this._updateAlertsPref();
-        }
-        return this._alertPref;
-    },
     alert: function(title, body) {
         this.alertsService().showAlertNotification(null, title, body, null,
 						   null, null);
@@ -100,7 +90,6 @@ DNSSDServiceTracker.prototype = {
                         var dnssdSvc = this.dnssdSvc();
 			var browseCallback = this.callInContext(this.bListener);
 			this._dnssdSvcBrowser = dnssdSvc.browse(browseCallback);
-			this._updateAlertsPref();
 			this.log("init finished - browsing for services");
                     });
                     this._initTimer.initWithCallback({notify: tCallback}, 500,
@@ -164,7 +153,7 @@ DNSSDServiceTracker.prototype = {
 	}
 	if (add && this._services[label].count == 1) {
 	    this.log("Service " + label + " now available");
-	    if (this._sendAlerts()) {
+	    if (this.prefs().getBoolPref("alerts")) {
 		this.alert('Service Discovered', label);
 	    }
 	    reorganise = true;

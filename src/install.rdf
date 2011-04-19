@@ -12,7 +12,8 @@
                    em:version="0.9.0"
                    em:name="DNSSD for Firefox"
                    em:description="DNS Service Discovery for Firefox"
-                   em:homepageURL="http://www.dnssd.me/web/firefox">
+                   em:homepageURL="http://www.dnssd.me/web/firefox"
+                   em:optionsURL="chrome://dnssd/content/options.xul">
     <em:targetApplication RDF:resource="rdf:#$f.z7d"/>
   </RDF:Description>
 </RDF:RDF>
