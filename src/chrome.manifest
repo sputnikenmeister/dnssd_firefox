@@ -11,3 +11,4 @@ contract	@dnssd.me/DNSSDServiceTracker;1	{2a0884a8-40d8-4e12-afd6-26530b2e47c2}
 category	profile-after-change			DNSSDServiceTracker @dnssd.me/DNSSDServiceTracker;1
 binary-component					components/DNSSDService.dylib
 binary-component					components/DNSSDService.dll
+binary-component					components/DNSSDService.so

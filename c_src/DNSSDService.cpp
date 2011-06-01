@@ -59,10 +59,12 @@ void DNSSDService::Cleanup() {
 	PR_ShutdownThreadPool(m_threadPool);
 	m_threadPool = NULL;
   }
+#if defined(_WIN32) || defined(__APPLE__)
   if (m_fileDesc != NULL) {
 	PR_Close(m_fileDesc);
 	m_fileDesc = NULL;
   }
+#endif
   if (m_sdRef) {
 	DNSServiceRefDeallocate(m_sdRef);
 	m_sdRef = NULL;
@@ -184,10 +186,12 @@ NS_IMETHODIMP DNSSDService::Stop() {
 	PR_CancelJob( m_job );
 	m_job = NULL;
   }
+#if defined(_WIN32) || defined(__APPLE__)
   if (m_fileDesc != NULL) {
 	PR_Close(m_fileDesc);
 	m_fileDesc = NULL;
   }
+#endif
   if (m_sdRef) {
 	DNSServiceRefDeallocate(m_sdRef);
 	m_sdRef = NULL;
@@ -205,6 +209,7 @@ NS_IMETHODIMP DNSSDService::Run() {
   NS_PRECONDITION(m_sdRef != NULL, "m_sdRef is NULL");
   m_job = NULL;
   err = NS_OK;
+  if (m_stopped) return NS_OK;
   if (PR_Available(m_fileDesc) > 0 && m_sdRef != NULL) {
 	if (DNSServiceProcessResult(m_sdRef) == kDNSServiceErr_NoError) {
 	  err = SetupNotifications();

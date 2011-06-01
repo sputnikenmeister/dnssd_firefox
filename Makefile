@@ -1,4 +1,4 @@
-UNAME = $(shell (uname -o 2>/dev/null||uname -s 2>/dev/null)|tr 'A-Z' 'a-z')
+UNAME = $(shell (uname -o 2>/dev/null||uname -s 2>/dev/null)|tr 'A-Z/' 'a-z-')
 include $(UNAME).mk
 
 scratch/components/%:
