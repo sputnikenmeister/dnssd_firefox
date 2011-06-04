@@ -17,23 +17,31 @@ else
     SUFFIX =
 endif
 
+ifndef LIBXUL
+	ifeq ($(shell pkg-config --exists libxul-unstable; echo $$?),0)
+		LIBXUL = libxul-unstable
+	else
+		LIBXUL = libxul
+	endif
+endif
+
 # avahi includes
 AVAHI_INC = $(shell pkg-config --cflags avahi-compat-libdns_sd)
 AVAHI_LIB = $(shell pkg-config --libs avahi-compat-libdns_sd)
 
 # xulrunner includes
-XR_INC = $(shell pkg-config --cflags libxul libxul-unstable)
-XR_LIB = $(shell pkg-config --libs libxul libxul-unstable)
-XR_IDL_PATH = $(shell pkg-config --variable=idldir libxul)
+XR_INC = $(shell pkg-config --cflags libxul ${LIBXUL})
+XR_LIB = $(shell pkg-config --libs libxul ${LIBXUL})
+XR_IDL_PATH = $(shell pkg-config --variable=idldir ${LIBXUL})
 IDL_INC = -I ${XR_IDL_PATH}
 
 #xpcom compiler path
-XPIDL = $(shell pkg-config --variable=sdkdir libxul-unstable)/bin/xpidl
+XPIDL = $(shell pkg-config --variable=sdkdir ${LIBXUL})/bin/xpidl
 
 # targets
 IDL_TARGETS = idl/IDNSSD.h idl/IDNSSD.xpt
 TMP_OBJECTS = c_src/DNSSDService${SUFFIX}.o c_src/DNSSDServiceModule${SUFFIX}.o
-DLL_OBJECTS = c_src/DNSSDService.so
+DLL_OBJECTS = c_src/DNSSDService${SUFFIX}.so
 ALL_OBJECTS = ${IDL_TARGETS} ${TMP_OBJECTS} ${DLL_OBJECTS}
 
 # destination
@@ -57,7 +65,7 @@ scratch: ${ALL_OBJECTS}
 	cp src/defaults.js ${SCRATCH_PATH}/defaults/preferences
 	cp idl/IDNSSD.xpt ${SCRATCH_PATH}/components
 	cp src/DNSSDServiceTracker.js ${SCRATCH_PATH}/components
-	cp c_src/DNSSDService.so ${SCRATCH_PATH}/components
+	cp c_src/DNSSDService${SUFFIX}.so ${SCRATCH_PATH}/components
 
 idl: ${IDL_TARGETS}
 
@@ -67,10 +75,10 @@ idl/%.h:
 idl/%.xpt:
 	${XPIDL} -m typelib ${IDL_INC} -o idl/$* idl/$*.idl
 
-c_src/%.o: idl/IDNSSD.h
+c_src/%${SUFFIX}.o: idl/IDNSSD.h
 	${CC} ${CFLAGS} -w -c -o $@ -I idl ${XR_INC} ${XR_LIB} ${AVAHI_INC} c_src/$*.cpp
 
-c_src/%.so: ${TMP_OBJECTS}
+c_src/%${SUFFIX}.so: ${TMP_OBJECTS}
 	${CC} -shared -Wl,-z,defs ${AVAHI_LIB} ${LDFLAGS} -dynamiclib -o $@ $^ ${XR_LIB}
 
 ifndef EXT_PATH
