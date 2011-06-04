@@ -1,5 +1,6 @@
 *.xpi
 c_src/*.o
+c_src/*.so
 c_src/*.dylib
 c_src/*.obj
 c_src/*.exp
