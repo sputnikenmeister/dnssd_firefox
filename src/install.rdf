@@ -14,6 +14,10 @@
                    em:description="DNS Service Discovery for Firefox"
                    em:homepageURL="http://www.dnssd.me/web/firefox"
                    em:optionsURL="chrome://dnssd/content/options.xul">
+    <em:targetPlatform>Darwin</em:targetPlatform>
+    <em:targetPlatform>WINNT_x86-msvc</em:targetPlatform>
+    <em:targetPlatform>Linux_x86-gcc3</em:targetPlatform>
+    <em:targetPlatform>Linux_x86_64-gcc3</em:targetPlatform>
     <em:targetApplication RDF:resource="rdf:#$f.z7d"/>
   </RDF:Description>
 </RDF:RDF>

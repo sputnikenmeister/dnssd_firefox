@@ -9,6 +9,7 @@ interfaces	components/IDNSSD.xpt
 component	{2a0884a8-40d8-4e12-afd6-26530b2e47c2}	components/DNSSDServiceTracker.js
 contract	@dnssd.me/DNSSDServiceTracker;1	{2a0884a8-40d8-4e12-afd6-26530b2e47c2}
 category	profile-after-change			DNSSDServiceTracker @dnssd.me/DNSSDServiceTracker;1
-binary-component					components/DNSSDService.dylib
-binary-component					components/DNSSDService.dll
-binary-component					components/DNSSDService.so
+binary-component	components/DNSSDService.dylib	os=Darwin
+binary-component	components/DNSSDService.dll	abi=WINNT_x86-msvc
+binary-component	components/DNSSDService.so	abi=Linux_x86-gcc3
+binary-component	components/DNSSDService64.so	abi=Linux_x86_64-gcc3
