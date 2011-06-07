@@ -56,17 +56,6 @@ INSTALL_PATH = ${EXT_PATH}/bonjourfoxy\@bonjourfoxy.net
 
 all: scratch
 
-scratch: ${ALL_OBJECTS}
-	mkdir -p ${SCRATCH_PATH}/components ${SCRATCH_PATH}/content \
-		${SCRATCH_PATH}/defaults/preferences  ${SCRATCH_PATH}/locale
-	cp src/chrome.manifest src/install.rdf ${SCRATCH_PATH}
-	cp src/content/* ${SCRATCH_PATH}/content
-	cp -r src/locale/* ${SCRATCH_PATH}/locale
-	cp src/defaults.js ${SCRATCH_PATH}/defaults/preferences
-	cp idl/IDNSSD.xpt ${SCRATCH_PATH}/components
-	cp src/DNSSDServiceTracker.js ${SCRATCH_PATH}/components
-	cp c_src/DNSSDService${SUFFIX}.so ${SCRATCH_PATH}/components
-
 idl: ${IDL_TARGETS}
 
 idl/%.h:
