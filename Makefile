@@ -22,6 +22,14 @@ scratch: ${ALL_OBJECTS}
 	@cp -v c_src/DNSSDService64.so ${SCRATCH_PATH}/components || \
 		echo "!! WARNING !! DNSSDService64.so missing"
 
-xpi: scratch/components/DNSSDService.dll scratch/components/DNSSDService.dylib
+xpi:
+	@test -f scratch/components/DNSSDService.dylib || \
+		echo "!! WARNING !! DNSSDService.dylib missing"
+	@test -f scratch/components/DNSSDService.dll || \
+		echo "!! WARNING !! DNSSDService.dll missing"
+	@test -f scratch/components/DNSSDService.so || \
+		echo "!! WARNING !! DNSSDService.so missing"
+	@test -f scratch/components/DNSSDService64.so || \
+		echo "!! WARNING !! DNSSDService64.so missing"
 	cd scratch && \
 	zip -r ../dnssd-$(shell sed -n 's/.*em:version="\(.*\)".*/\1/p' ${SCRATCH_PATH}/install.rdf).xpi *
